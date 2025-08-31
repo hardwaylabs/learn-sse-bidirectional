@@ -1,3 +1,3 @@
-module github.com/pavelanni/learn-sse-bidirectional/go
+module github.com/hardwaylabs/learn-sse-bidirectional/go
 
 go 1.24.6

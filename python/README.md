@@ -18,9 +18,9 @@ async def stream_events():
         while True:
             yield f"data: Hello at {time.time()}\n\n"
             await asyncio.sleep(1)
-    
+
     return StreamingResponse(
-        generate(), 
+        generate(),
         media_type="text/event-stream"
     )
 ```
@@ -32,7 +32,7 @@ async def stream_events():
 - `asyncio.Queue` for message passing
 - `asyncio.gather` for concurrent connections
 
-#### Client Implementation  
+#### Client Implementation
 ```python
 import httpx
 import asyncio
@@ -56,7 +56,7 @@ async def client_stream(client_id: str):
         media_type="text/event-stream"
     )
 
-# HTTP POST for client→server responses  
+# HTTP POST for client→server responses
 @app.post("/response")
 async def handle_response(response: ClientResponse):
     await process_client_response(response)
@@ -65,13 +65,13 @@ async def handle_response(response: ClientResponse):
 
 ## Comparison with Go Implementation
 
-| Aspect | Go | Python |
-|--------|-----|--------|
-| **Concurrency** | Goroutines + channels | asyncio + queues |
-| **HTTP Server** | net/http | FastAPI/uvicorn |
-| **SSE Streaming** | http.Flusher | StreamingResponse |
-| **Client** | bufio.Scanner | httpx.AsyncClient |
-| **JSON** | encoding/json | Pydantic models |
+| Aspect            | Go                    | Python            |
+| ----------------- | --------------------- | ----------------- |
+| **Concurrency**   | Goroutines + channels | asyncio + queues  |
+| **HTTP Server**   | net/http              | FastAPI/uvicorn   |
+| **SSE Streaming** | http.Flusher          | StreamingResponse |
+| **Client**        | bufio.Scanner         | httpx.AsyncClient |
+| **JSON**          | encoding/json         | Pydantic models   |
 
 ## Advantages of Python Implementation
 
@@ -100,7 +100,7 @@ async def handle_response(response: ClientResponse):
 # Server
 python cmd/basic_sse_server.py
 
-# Client  
+# Client
 python cmd/basic_sse_client.py
 
 # Browser test
@@ -152,7 +152,7 @@ pytest-asyncio>=0.21.0
 - [ ] Basic event streaming
 - [ ] Connection management
 
-### Phase 2: Bidirectional Patterns  
+### Phase 2: Bidirectional Patterns
 - [ ] Request/response correlation
 - [ ] Session management
 - [ ] Timeout handling
@@ -189,7 +189,7 @@ Compare the same patterns across languages:
 
 ```bash
 # Clone the repository
-git clone https://github.com/pavelanni/learn-sse-bidirectional
+git clone https://github.com/hardwaylabs/learn-sse-bidirectional
 cd learn-sse-bidirectional/python
 
 # Create virtual environment
@@ -207,7 +207,7 @@ python cmd/basic_sse_server.py
 
 Help us build the Python implementation:
 - **Port Go Examples**: Convert working Go code to Python
-- **Add New Patterns**: WebSocket, gRPC streaming comparisons  
+- **Add New Patterns**: WebSocket, gRPC streaming comparisons
 - **Improve Documentation**: Python-specific best practices
 - **Testing**: Comprehensive test coverage
 

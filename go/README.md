@@ -15,7 +15,7 @@ Go implementation of Server-Sent Events and bidirectional communication patterns
 go run cmd/basic_sse_server/main.go    # Terminal 1
 go run cmd/basic_sse_client/main.go    # Terminal 2
 
-# Bidirectional communication  
+# Bidirectional communication
 go run cmd/bidirectional_server/main.go   # Terminal 1
 go run cmd/bidirectional_client/main.go   # Terminal 2
 go run cmd/demo_trigger/main.go            # Terminal 3
@@ -28,13 +28,13 @@ open http://localhost:8080/web/sse-test.html
 
 ### Basic SSE Server (`cmd/basic_sse_server/main.go`)
 - **Purpose**: Demonstrates one-way server→client communication
-- **Key Features**: 
+- **Key Features**:
   - Proper SSE headers (`Content-Type: text/event-stream`)
   - Immediate flushing for real-time delivery
   - Clean connection management
 - **Learning Focus**: SSE protocol fundamentals
 
-### Basic SSE Client (`cmd/basic_sse_client/main.go`)  
+### Basic SSE Client (`cmd/basic_sse_client/main.go`)
 - **Purpose**: Connects to SSE server and processes events
 - **Key Features**:
   - HTTP client with SSE stream parsing
@@ -46,7 +46,7 @@ open http://localhost:8080/web/sse-test.html
 - **Purpose**: Full two-way communication using SSE + HTTP POST
 - **Key Features**:
   - Client session management
-  - Request/response correlation with unique IDs  
+  - Request/response correlation with unique IDs
   - Timeout handling for client responses
   - Multiple concurrent client support
 - **Learning Focus**: Complete bidirectional patterns
@@ -72,7 +72,7 @@ open http://localhost:8080/web/sse-test.html
 ```go
 // Essential SSE headers
 w.Header().Set("Content-Type", "text/event-stream")
-w.Header().Set("Cache-Control", "no-cache") 
+w.Header().Set("Cache-Control", "no-cache")
 w.Header().Set("Connection", "keep-alive")
 
 // Immediate event delivery
@@ -113,7 +113,7 @@ case <-time.After(30 * time.Second):
 
 ### Session Management
 - **Client Registration**: Server tracks active client connections
-- **Cleanup**: Proper resource cleanup when clients disconnect  
+- **Cleanup**: Proper resource cleanup when clients disconnect
 - **State Isolation**: Each client has independent request/response channels
 
 ### Error Handling
@@ -155,7 +155,7 @@ if flusher, ok := w.(http.Flusher); ok {
 **Solution**: Send periodic keepalive events or adjust timeout settings
 
 ### Memory Leaks
-**Problem**: Server memory grows with disconnected clients  
+**Problem**: Server memory grows with disconnected clients
 **Solution**: Implement proper cleanup in goroutine defer statements
 
 ### Race Conditions
@@ -174,7 +174,7 @@ if flusher, ok := w.(http.Flusher); ok {
 - **Rate Limiting**: Prevent abuse of endpoints
 - **Authentication**: Secure both SSE and POST endpoints
 
-### Reliability  
+### Reliability
 - **Health Checks**: Monitor connection health
 - **Circuit Breakers**: Handle downstream failures gracefully
 - **Monitoring**: Log connection events and errors
@@ -194,7 +194,7 @@ if flusher, ok := w.(http.Flusher); ok {
 - **Collaborative Tools**: Multi-user document editing
 
 ### Integration with Other Projects
-- **MCP Implementation**: See [learn-mcp-sampling](https://github.com/pavelanni/learn-mcp-sampling)
+- **MCP Implementation**: See [learn-mcp-sampling](https://github.com/hardwaylabs/learn-mcp-sampling)
 - **Python Version**: Compare with Python implementations
 - **Production Deployment**: Scale to production environments
 

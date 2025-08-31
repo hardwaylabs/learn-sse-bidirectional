@@ -5,7 +5,7 @@ A hands-on learning repository for Server-Sent Events (SSE) and bidirectional re
 ## What You'll Learn
 
 1. **SSE Fundamentals** - Protocol mechanics, headers, connection lifecycle
-2. **Bidirectional Patterns** - Combining SSE + HTTP POST for two-way communication  
+2. **Bidirectional Patterns** - Combining SSE + HTTP POST for two-way communication
 3. **Real-time Architecture** - When and how to use these patterns
 4. **Production Considerations** - Scaling, reliability, error handling
 
@@ -187,21 +187,21 @@ Coming soon - the same patterns implemented in Python using:
 
 ### Common Issues
 - **Missing Flush**: Events delayed until connection closes
-- **Wrong Headers**: Browser/client rejects SSE stream  
+- **Wrong Headers**: Browser/client rejects SSE stream
 - **Network Timeouts**: Proxy or firewall interference
 - **Memory Leaks**: Not cleaning up disconnected clients
 - **Race Conditions**: Request/response correlation bugs
 
 ### Debug Tools
 1. **Browser DevTools**: Network tab shows SSE connections
-2. **curl**: Test SSE endpoints directly
-3. **Connection Logs**: Monitor connect/disconnect events
-4. **Message Tracing**: Log all sent/received messages
+1. **curl**: Test SSE endpoints directly
+1. **Connection Logs**: Monitor connect/disconnect events
+1. **Message Tracing**: Log all sent/received messages
 
 ## Related Projects
 
-- [learn-mcp-sampling](https://github.com/pavelanni/learn-mcp-sampling) - See these concepts applied to MCP protocol
-- [Caret Labs](https://caretlabs.dev) - Hands-on learning methodology for developers
+- [learn-mcp-sampling](https://github.com/hardwaylabs/learn-mcp-sampling) - See these concepts applied to MCP protocol
+- [Hard Way Labs](https://hardwaylabs.dev) - Hands-on learning methodology for developers
 
 ## Contributing
 
@@ -219,4 +219,4 @@ MIT License - Use these examples freely for learning and building!
 
 **Happy Learning!** 🚀
 
-*Part of the Caret Labs learning methodology - hands-on, progressive, multi-component education for developers.*
+*Part of the Hard Way Labs learning methodology - hands-on, progressive, multi-component education for developers.*
