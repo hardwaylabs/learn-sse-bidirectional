@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SSE Learning Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .events { border: 1px solid #ccc; padding: 20px; margin: 20px 0; height: 400px; overflow-y: scroll; }
+        .event { margin: 5px 0; padding: 5px; background: #f0f0f0; border-radius: 3px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .connected { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { padding: 10px 15px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>SSE Learning Test</h1>
+    <p>This page tests Server-Sent Events to understand how SSE works.</p>
+    
+    <div id="status" class="status">Not connected</div>
+    
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="clearEvents()">Clear Events</button>
+    
+    <h2>Events Received:</h2>
+    <div id="events" class="events"></div>
+    
+    <h2>Debug Info:</h2>
+    <pre id="debug"></pre>
+
+    <script>
+        let eventSource = null;
+        let eventCount = 0;
+        
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'status ' + (isError ? 'error' : 'connected');
+        }
+        
+        function addEvent(message) {
+            const eventsDiv = document.getElementById('events');
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event';
+            eventDiv.textContent = `[${++eventCount}] ${new Date().toLocaleTimeString()}: ${message}`;
+            eventsDiv.appendChild(eventDiv);
+            eventsDiv.scrollTop = eventsDiv.scrollHeight;
+        }
+        
+        function addDebug(message) {
+            const debugPre = document.getElementById('debug');
+            debugPre.textContent += `${new Date().toLocaleTimeString()}: ${message}\n`;
+        }
+        
+        function connect() {
+            if (eventSource) {
+                addDebug('Already connected');
+                return;
+            }
+            
+            addDebug('Connecting to /events...');
+            updateStatus('Connecting...');
+            
+            eventSource = new EventSource('/events');
+            
+            eventSource.onopen = function(event) {
+                addDebug('SSE connection opened');
+                updateStatus('Connected to SSE stream');
+            };
+            
+            eventSource.onmessage = function(event) {
+                addDebug(`Received: ${event.data}`);
+                addEvent(event.data);
+            };
+            
+            eventSource.onerror = function(event) {
+                addDebug(`SSE error: ${JSON.stringify(event)}`);
+                updateStatus('Connection error', true);
+                
+                // EventSource automatically reconnects, but we can handle errors here
+                if (eventSource.readyState === EventSource.CLOSED) {
+                    addDebug('Connection closed by server');
+                }
+            };
+        }
+        
+        function disconnect() {
+            if (eventSource) {
+                addDebug('Closing SSE connection');
+                eventSource.close();
+                eventSource = null;
+                updateStatus('Disconnected');
+            }
+        }
+        
+        function clearEvents() {
+            document.getElementById('events').innerHTML = '';
+            document.getElementById('debug').textContent = '';
+            eventCount = 0;
+        }
+        
+        // Connect automatically on page load
+        window.addEventListener('load', connect);
+    </script>
+</body>
+</html>
